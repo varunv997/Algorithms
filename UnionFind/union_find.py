@@ -1,6 +1,18 @@
 """ File Containing Classes for Union Find """
 
 class QuickFindUF:
+    """
+    Class that exposes API for Quick Find Algorithm for Union Find.
+    Complexity:
+        To check Connection in the Graph: O(1)
+        To create Union in the Graph: O(N)
+    Methods:
+        is_connected()
+        union()
+    Member Variables:
+        N: No of nodes in the graph
+        nodeIds: List of connected components
+    """
     def __init__(self, N:int):
         """
         Constructor Function
