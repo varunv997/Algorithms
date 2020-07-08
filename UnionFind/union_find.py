@@ -80,6 +80,9 @@ class QuickUnionUF:
         """
         self.N = N
         self.nodeIds = list(range(0, N))
+
+    def is_connected(self, node1:int, node2:int) -> bool:
+        return self.get_root(node1) == self.get_root(node2)
     
     def get_root(self, nodeId:int) -> int:
         """
@@ -102,4 +105,5 @@ class QuickUnionUF:
         Return:
             None
         """
-        self.nodeIds[self.get_root(self.nodeIds[node1])] = self.get_root(node2)
+        if not self.is_connected(node1, node2):
+            self.nodeIds[self.get_root(self.nodeIds[node1])] = self.get_root(node2)
