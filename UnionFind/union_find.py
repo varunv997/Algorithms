@@ -82,6 +82,15 @@ class QuickUnionUF:
         self.nodeIds = list(range(0, N))
 
     def is_connected(self, node1:int, node2:int) -> bool:
+        """
+        Function to check if two nodes are connected
+        Input Params:
+            node1:int (Id of Node 1)
+            node2:int (Id of Node 2)
+        Return:
+            True if Nodes are connected
+            False if Nodes are not connected
+        """
         return self.get_root(node1) == self.get_root(node2)
     
     def get_root(self, nodeId:int) -> int:
