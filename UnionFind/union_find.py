@@ -22,9 +22,9 @@ class QuickFindUF:
             None
         """
         self.N = N
-        self.nodeIds = list(range(0,10))
+        self.nodeIds = list(range(0,N))
     
-    def is_connected(self, node1:int, node2:int):
+    def is_connected(self, node1:int, node2:int) -> bool:
         """
         Function to check if two nodes are connected
         Input Params:
@@ -55,25 +55,51 @@ class QuickFindUF:
                 if self.nodeIds[idx] == secondaryId:
                     self.nodeIds[idx] = primeId
 
-'''
-if __name__ == "__main__":
-    """ Sample Client """
-
-    # input to be read from input.txt
-    with open ("input.txt", "r") as f:
-        # Read N from the input
-        N = int(f.readline())
-
-        # Create QuickFindUF object
-        quickFind = QuickFindUF(N)
-
-        # read the rest of the file and perform union
-        line = f.readline()
-        while (line):
-            node1, node2 = [int(nodeId) for nodeId in line.split(" ")]
-            quickFind.union(node1, node2)
-            line = f.readline()
+class QuickUnionUF:
+    """
+    Class that exposes API for Quick Union Algorithm for Union Find.
+    Complexity:
+        To check Connection in the Graph: O(N)
+        To create Union in the Graph: O(N)
+        To find root: O(N)
+    Methods:
+        is_connected()
+        union()
+        get_root()
+    Member Variables:
+        N: No of nodes in the graph
+        nodeIds: List of connected components
+    """
+    def __init__(self, N:int):
+        """
+        Constructor Function
+        Input Params:
+            N:int (No of Nodes)
+        Return: 
+            None
+        """
+        self.N = N
+        self.nodeIds = list(range(0, N))
     
-        # print the final connections
-        print (quickFind.nodeIds)
-'''
+    def get_root(self, nodeId:int) -> int:
+        """
+        Function to get the root of a node
+        Input Params:
+            nodeId:int (node id of which the root is to be found)
+        Return:
+            nodeId:int of the root
+        """
+        if self.nodeIds[nodeId] == nodeId:
+            return nodeId
+        return self.get_root(self.nodeIds[nodeId])
+    
+    def union(self, node1:int, node2:int):
+        """
+        Function to create a union between two nodes
+        Input Params:
+            node1:int (Id of Node 1)
+            node2:int (Id of Node 2)
+        Return:
+            None
+        """
+        self.nodeIds[self.get_root(self.nodeIds[node1])] = self.get_root(node2)
